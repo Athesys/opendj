@@ -12,6 +12,9 @@
  * information: "Portions Copyright [year] [name of copyright owner]".
  *
  * Copyright 2012-2016 ForgeRock AS.
+ * 
+ * Portions Copyright 2018 Athesys.
+ * 
  */
 package org.forgerock.opendj.ldap;
 
@@ -890,8 +893,8 @@ public final class GeneralizedTime implements Comparable<GeneralizedTime> {
 
             // Format the year yyyy.
             int n = tmpCalendar.get(Calendar.YEAR);
-            if (n < 0) {
-                throw new IllegalArgumentException("Year cannot be < 0:" + n);
+            if (n < 0 || n > 9999) {
+                throw new IllegalArgumentException("Year cannot be < 0 and cannot be > 9999:" + n);
             } else if (n < 10) {
                 sb.append("000");
             } else if (n < 100) {

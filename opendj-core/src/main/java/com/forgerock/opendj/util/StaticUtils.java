@@ -764,7 +764,7 @@ public final class StaticUtils {
         if (classLoader != null) {
             loader = ServiceLoader.load(providerClass, classLoader);
         } else {
-            loader = ServiceLoader.load(providerClass);
+            loader = ServiceLoader.load(providerClass, providerClass.getClassLoader());
         }
         StringBuilder providersFound = new StringBuilder();
         for (P provider : loader) {

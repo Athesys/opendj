@@ -13,6 +13,8 @@
   information: "Portions Copyright [year] [name of copyright owner]".
 
   Copyright 2011-2016 ForgeRock AS.
+  
+  Portions Copyright 2018 Athesys.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -45,7 +47,7 @@
             scp://community.internal.forgerock.com/var/www/vhosts/opendj.forgerock.org/httpdocs
         </site.distribution.url>
 
-        <forgerock-build-tools.version>1.0.2</forgerock-build-tools.version>
+        <forgerock-build-tools.version>1.0.3</forgerock-build-tools.version>
         <forgerock-doc-plugin.version>3.2.2-SNAPSHOT</forgerock-doc-plugin.version>
         <freemarker.version>2.3.24-incubating</freemarker.version>
         <grizzly-framework.version>2.3.28</grizzly-framework.version>
@@ -64,15 +66,15 @@
         <opendj-copyright-maven-plugin.version>1.0.1</opendj-copyright-maven-plugin.version>
 
         <!--  ForgeRock build tools and Checkstyle versions (to avoid many checkstyle errors with ForgeRock Parent 2.0.10) -->
-        <forgerockBuildToolsVersion>1.0.2</forgerockBuildToolsVersion>
+        <forgerockBuildToolsVersion>1.0.3</forgerockBuildToolsVersion>
         <checkstylePluginVersion>2.9.1</checkstylePluginVersion>
         <checkstyleVersion>5.5</checkstyleVersion>
     </properties>
 
     <inceptionYear>2011</inceptionYear>
-    <url>http://opendj.forgerock.org</url>
+    <url>https://github.com/Athesys/opendj</url>
 
-    <mailingLists>
+    <!--<mailingLists>
         <mailingList>
             <name>OpenDJ Users Mailing List</name>
             <archive>http://lists.forgerock.org/pipermail/opendj/</archive>
@@ -88,7 +90,7 @@
             <unsubscribe>https://lists.forgerock.org/mailman/listinfo/opendj-dev/</unsubscribe>
             <post>opendj-dev@forgerock.org</post>
         </mailingList>
-    </mailingLists>
+    </mailingLists> -->
 
     <licenses>
         <license>
@@ -103,26 +105,26 @@
     </licenses>
 
     <issueManagement>
-        <system>Jira</system>
-        <url>https://bugster.forgerock.org/jira/browse/OPENDJ</url>
+        <system>jira</system>
+        <url>https://github.com/Athesys/opendj/issues</url>
     </issueManagement>
-
+    
     <scm>
-        <url>https://stash.forgerock.org/projects/OPENDJ/repos/opendj/browse</url>
-        <connection>scm:git:ssh://git@stash.forgerock.org:7999/opendj/opendj.git</connection>
-        <developerConnection>scm:git:ssh://git@stash.forgerock.org:7999/opendj/opendj.git</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
+		<connection>scm:git:https://github.com/Athesys/forgerock-bloomfilter.git</connection>
+		<developerConnection>scm:git:git@github.com:Athesys/forgerock-bloomfilter.git</developerConnection>
+		<url>https://github.com/Athesys/forgerock-bloomfilter</url>
+		<tag>HEAD</tag>
+	</scm>
 
-    <distributionManagement>
+    <!-- <distributionManagement>
         <site>
             <id>forgerock.org</id>
             <name>OpenDJ Community</name>
             <url>${site.distribution.url}</url>
         </site>
-    </distributionManagement>
+    </distributionManagement>  -->
 
-    <ciManagement>
+    <!-- <ciManagement>
         <system>jenkins</system>
         <url>https://ci.forgerock.org/view/OpenDJ/job/OpenDJ%20-%20postcommit</url>
         <notifiers>
@@ -135,7 +137,7 @@
                 <address>opendj-dev@forgerock.org</address>
             </notifier>
         </notifiers>
-    </ciManagement>
+    </ciManagement> -->
 
     <dependencyManagement>
         <dependencies>
@@ -258,6 +260,31 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+		          <execution>
+		            <id>attach-sources</id>
+		            <phase>verify</phase>
+		            <goals>
+		              <goal>jar-no-fork</goal>
+		            </goals>
+		          </execution>
+		        </executions>
+            </plugin>
+            <plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-javadoc-plugin</artifactId>
+			  <executions>
+			    <execution>
+			      <id>attach-javadocs</id>
+			      <goals>
+			        <goal>jar</goal>
+			      </goals>
+			    </execution>
+			  </executions>
+			</plugin>
         </plugins>
 
         <pluginManagement>
