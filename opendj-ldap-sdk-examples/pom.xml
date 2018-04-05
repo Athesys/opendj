@@ -44,14 +44,6 @@
         </dependency>
     </dependencies>
 
-    <distributionManagement>
-        <site>
-            <id>forgerock.org</id>
-            <name>OpenDJ Community</name>
-            <url>scp://forgerock.org/var/www/vhosts/opendj.forgerock.org/httpdocs/opendj-ldap-sdk-examples</url>
-        </site>
-    </distributionManagement>
-
     <build>
         <plugins>
             <plugin>

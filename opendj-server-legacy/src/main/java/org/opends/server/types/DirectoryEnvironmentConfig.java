@@ -668,6 +668,54 @@ public final class DirectoryEnvironmentConfig
   }
 
   /**
+   * Specifies the directory that should be used to hold the server
+   * lock files.  If the specified path already exists, then it must
+   * be a directory and its contents must be writable by the server.
+   * If it does not exist, then its parent directory must exist and
+   * the server should have permission to create a new subdirectory in
+   * it.
+   *
+   * @param  lockDirectory  The directory that should be used to hold
+   *                        the server lock files.
+   *
+   * @return  The previously-defined lock directory, or {@code null}
+   *          if none was defined.
+   *
+   * @throws  InitializationException  If the Directory Server is
+   *                                   already running or there is a
+   *                                   problem with the provided lock
+   *                                   directory.
+   */
+  public File setLockDirectory(File lockDirectory)
+         throws InitializationException
+  {
+    checkServerIsRunning();
+
+    if (lockDirectory.exists())
+    {
+      if (! lockDirectory.isDirectory())
+      {
+        throw new InitializationException(
+                ERR_DIRCFG_INVALID_LOCK_DIRECTORY.get(
+                        lockDirectory.getAbsolutePath()));
+      }
+    }
+    else
+    {
+      File parentFile = lockDirectory.getParentFile();
+      if (!parentFile.exists() || !parentFile.isDirectory())
+      {
+        throw new InitializationException(
+                ERR_DIRCFG_INVALID_LOCK_DIRECTORY.get(
+                        lockDirectory.getAbsolutePath()));
+      }
+    }
+
+    return setPathProperty(PROPERTY_LOCK_DIRECTORY, lockDirectory);
+  }
+
+
+  /**
    * Indicates whether the Directory Server startup process should
    * skip the connection handler creation and initialization phases.
    *
